@@ -1,7 +1,6 @@
 node {
     def app
-    agent any
-    
+   
     stages {
 
         stage('Build Docker Image')
