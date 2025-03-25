@@ -6,13 +6,15 @@ pipeline {
       environment {
         IMAGE_NAME = 'ashask/my-app'
         IMAGE_TAG = "${IMAGE_NAME}:${env.GIT_COMMIT}"
-        
-    }
+       
+      
+      }
      stage('Login to docker hub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                sh 'echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin'}
-                echo 'Login successfully'
+                sh 'echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin'
+                }
+                echo 'Login successfully' 
             }
         }
 
