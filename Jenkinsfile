@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'ashask/my-app'
-        IMAGE_TAG = "${IMAGE_NAME}:${env.GIT_COMMIT}"
+        IMAGE_TAG = "${IMAGE_NAME}"
         
     }
 
