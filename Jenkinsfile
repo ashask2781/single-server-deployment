@@ -1,6 +1,8 @@
 node {
     def app
-    agent docker { image 'node:16' }:
+    agent {
+        docker { image 'node:22.14.0-alpine3.21' }
+    }
     stages {
 
         stage('Build Docker Image')
