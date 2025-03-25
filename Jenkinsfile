@@ -10,22 +10,12 @@ pipeline {
     
     stages {
 
-       stage('Login to docker hub') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                sh 'echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin'}
-                echo 'Login successfully'
-            }
-        }
-
         stage('Build Docker Image')
         {
             steps
             {
-                sh 'docker build -t ${IMAGE_TAG} .'
+                app = docker.build("myapp:v2")
                 echo "Docker image build successfully"
-                sh 'docker image ls'
-                
             }
         }
 
@@ -33,7 +23,9 @@ pipeline {
         {
             steps
             {
-                sh 'docker push ${IMAGE_TAG}'
+                docker.withRegistry('https://hub.docker.com/repositories/ashask', 'docker-creds') {
+                app.push("${env.BUILD_NUMBER}")
+                app.push("latest")
                 echo "Docker image push successfully"
             }
         }      
